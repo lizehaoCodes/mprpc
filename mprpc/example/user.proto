@@ -1,0 +1,43 @@
+syntax = "proto3";
+package fixbug;
+option cc_generic_services = true;
+
+message ResultCode
+{
+    int32 errcode = 1; 
+    bytes errmsg = 2;
+}
+// rpc方法请求参数
+message LoginRequest
+{
+    bytes name = 1;
+    bytes pwd = 2;
+}
+// rpc方法响应参数
+message LoginResponse
+{
+    ResultCode result = 1;
+    bool sucess = 2;
+}
+// rpc方法请求参数
+message RegisterRequest
+{
+    uint32 id = 1;
+    bytes name = 2;
+    bytes pwd = 3;
+}
+// rpc方法响应参数
+message RegisterResponse
+{
+    ResultCode result = 1;
+    bool sucess = 2;
+}
+
+// 用户模块
+// 在proto文件中，定义rpc方法描述，将本地服务发布成rpc服务
+service UserServiceRpc// 服务对象名
+{
+    // rpc方法描述（方法名 + 方法请求 + 方法响应）
+    rpc Login(LoginRequest)returns(LoginResponse);
+    rpc Register(RegisterRequest) returns(RegisterResponse);
+}

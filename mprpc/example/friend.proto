@@ -1,0 +1,29 @@
+syntax = "proto3";
+package fixbug;
+option cc_generic_services = true;
+
+message ResultCode
+{
+    int32 errcode = 1; 
+    bytes errmsg = 2;
+}
+// 参数类型
+message GetFriendsListRequest
+{
+    uint32 userid = 1;
+}
+// 响应消息类型
+message GetFriendsListResponse
+{
+    ResultCode result = 1;
+    // 列表
+    repeated bytes friends = 2;
+}
+
+// 好友模块
+// 在proto文件中，定义rpc方法描述，将本地服务发布成rpc服务
+service FiendServiceRpc// 服务对象名
+{
+    // rpc方法描述（方法名 + 方法请求 + 方法响应）
+    rpc GetFriendsList(GetFriendsListRequest) returns(GetFriendsListResponse);
+}

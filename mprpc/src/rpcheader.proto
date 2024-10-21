@@ -1,0 +1,12 @@
+syntax = "proto3";
+package mprpc;
+// 通过远程rpc调用，传来的数据头
+message RpcHeader
+{
+    // 服务名
+    bytes service_name = 1;
+    // 方法名
+    bytes method_name = 2;
+    // 参数长度
+    uint32 args_size = 3;
+}
